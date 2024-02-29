@@ -37,3 +37,5 @@ class Product(db.Model, SerializerMixin):
     name = db.Column(db.String)
     description = db.Column(db.String)
     price = db.Column(db.Float)
+    size = db.Column(db.String)
+    color = db.Column(db.String)
