@@ -13,7 +13,9 @@ sqlalchemy-serializer = "*"
 flask-restful = "*"
 flask-cors = "*"
 faker = "*"
-bcrypt = "*"
+flask-bcrypt = "*"
+gunicorn = "20.1.0"
+honcho = "1.1.0"
 
 [requires]
 python_full_version = "3.8.13"
