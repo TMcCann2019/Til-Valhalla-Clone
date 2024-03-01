@@ -1,5 +1,4 @@
 from sqlalchemy_serializer import SerializerMixin
-from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.orm import validates
 from sqlalchemy.ext.hybrid import hybrid_property
 
@@ -61,6 +60,9 @@ class Order(db.Model, SerializerMixin):
         if value not in valid_status:
             raise ValueError("Invalid order status")
         return value
+    
+    def __repr__(self):
+        return f'<Status: {self.status}'
 
 class OrderItem(db.Model, SerializerMixin):
     __tablename__ = 'order_items'
@@ -73,6 +75,9 @@ class OrderItem(db.Model, SerializerMixin):
     products = db.relationship('Product', backref='order_item')
 
     serialize_rules = ("-products.order_items",)
+
+    def __repr__(self):
+        return f'<Quantity: {self.quantity}'
 
 class Product(db.Model, SerializerMixin):
     __tablename__ = 'products'
@@ -100,3 +105,6 @@ class Product(db.Model, SerializerMixin):
         if value not in valid_images:
             raise ValueError("Invalid image format")
         return value
+    
+    def __repr__(self):
+        return f'<Name: {self.name}, Description: {self.description}, Price: {self.price}, Size: {self.size}, Color: {self.color}'
