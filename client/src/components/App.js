@@ -1,5 +1,4 @@
 import { Route, Switch, useHistory } from 'react-router-dom'
-import {createGlobalStyle} from 'styled-components'
 import {useEffect, useState} from 'react'
 import Navigation from './components/navigation'
 import HomePage from './components/HomePage'
@@ -49,6 +48,7 @@ function App() {
 
   if (!user) return (
     <>
+      <Navigation />
       <Authentication updateUser={updateUser}/>
     </>
   )
