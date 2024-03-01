@@ -52,21 +52,21 @@ function Authentication({updateUser}) {
         <button onClick={handleClick}>{signUp?'Log In!' : 'Register now!'}</button>
         <Form onSubmit={formik.handleSubmit}>
             <label>
-                Username:
+                Username: 
                 <input type="text" name="username" value={formik.values.username} onChange={formik.handleChange} />
             </label>
             <label>
-                Password:
+                Password: 
                 <input type="password" name="password" value={formik.values.password} onChange={formik.handleChange} />
-                {signUp && (
-                    <>
-                    <label>
-                        Email
-                        <input type="text" name="email" value={formik.values.email} onChange={formik.handleChange} />
-                    </label>
-                    </>
-                )}
             </label>
+            {signUp && (
+            <>
+            <label>
+                Email: 
+                <input type="text" name="email" value={formik.values.email} onChange={formik.handleChange} />
+            </label>
+            </>
+            )}
             <input type = 'submit' value={signUp ? 'Sign Up!' : 'Log In!'} />
         </Form>
         </>
