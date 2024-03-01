@@ -1,12 +1,12 @@
 import { Route, Switch, useHistory } from 'react-router-dom'
 import {useEffect, useState} from 'react'
-import Navigation from './components/navigation'
-import HomePage from './components/HomePage'
-import About from './components/About'
-import Products from './components/Products'
-import ShoppingCart from './components/ShoppingCart'
-import Authentication from './components/Authentication'
-import NotFound from './components/NotFound'
+import Navigation from './Navigation'
+import HomePage from './HomePage'
+import About from './About'
+import Products from './Products'
+import ShoppingCart from './ShoppingCart'
+import Authentication from './Authentication'
+import NotFound from './NotFound'
 
 function App() {
   const [productEdit, setProductEdit] = useState([])

@@ -3,7 +3,7 @@
 # Standard library imports
 
 # Remote library imports
-from flask import abort, jsonify, make_response, request, session
+from flask import abort, make_response, request, session
 from flask_restful import Resource
 from werkzeug.exceptions import NotFound, Unauthorized
 
@@ -65,4 +65,3 @@ def login():
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
-
