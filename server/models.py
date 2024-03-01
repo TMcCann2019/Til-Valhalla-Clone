@@ -85,7 +85,7 @@ class Product(db.Model, SerializerMixin):
     name = db.Column(db.String)
     description = db.Column(db.String)
     image = db.Column(db.String)
-    price = db.Column(db.Float)
+    price = db.Column(db.Integer)
     size = db.Column(db.String)
     color = db.Column(db.String)
     order_items = db.relationship('OrderItem', backref='product', cascade = ("all, delete"))
@@ -100,8 +100,8 @@ class Product(db.Model, SerializerMixin):
     
     @validates('image')
     def validate_image(self, key, image_path):
-        valid_images = ['.jpg', '.png', 'jpeg']
-        if image_path not in valid_images:
+        valid_images = ['.jpg', '.png', '.jpeg']
+        if valid_images not in image_path:
             raise ValueError("Invalid image format")
         return image_path
     

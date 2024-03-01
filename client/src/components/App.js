@@ -55,7 +55,7 @@ function App() {
 
   return (
     <>
-    <Navigation updateUser={updateUser}  handleEdit={handleEdit}/>
+    <Navigation updateUser={updateUser} />
       <Switch>
         <Route exact path='/authentication'>
           <Authentication updateUser={updateUser}/>
