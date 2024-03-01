@@ -12,8 +12,6 @@ from config import app, db, api
 # Add your model imports
 from models import *
 
-app.secret_key = "enter secret key here"
-
 # Views go here!
 @app.route('/')
 def index():

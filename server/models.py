@@ -1,8 +1,9 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.orm import validates
+from sqlalchemy.ext.hybrid import hybrid_property
 
-from config import db
+from config import db, bcrypt
 
 # Models go here!
 class User(db.Model, SerializerMixin):
@@ -11,7 +12,7 @@ class User(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(10), unique=True, nullable=False)
     email = db.Column(db.String(25), unique=True, nullable=False)
-    _password = db.Column(db.String(100), nullable=False)
+    _password_hash = db.Column(db.String)
     orders = db.relationship('Order', backref='user')
 
     serialize_rules = ("-orders.user",)
@@ -27,6 +28,18 @@ class User(db.Model, SerializerMixin):
         if User.query.filter_by(email=value).first() is not None:
             raise ValueError("Email is already associated with an account")
         return value
+    
+    @hybrid_property
+    def password_hash(self):
+        return self._password_hash
+    
+    @password_hash.setter
+    def password_hash(self, password):
+        password_hash = bcrypt.generate_password_hash(password.encode('utf-8'))
+        self._password_hash = password_hash.decode('utf-8')
+
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(self._password_hash, password.encode('utf-8'))
     
     def __repr__(self):
         return f'<Username: {self.username}, Email: {self.email}'
@@ -67,6 +80,7 @@ class Product(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     description = db.Column(db.String)
+    image = db.Column(db.String)
     price = db.Column(db.Float)
     size = db.Column(db.String)
     color = db.Column(db.String)
@@ -78,4 +92,11 @@ class Product(db.Model, SerializerMixin):
     def validate_name(self, key, value):
         if Product.query.filter_by(name=value).first() is not None:
             raise ValueError("Product name already taken")
+        return value
+    
+    @validates('image')
+    def validate_image(self, key, value):
+        valid_images = ['.jpg', '.png', 'jpeg']
+        if value not in valid_images:
+            raise ValueError("Invalid image format")
         return value

@@ -9,10 +9,10 @@ function Authentication({updateUser}) {
     const history = useHistory()
 
     const handleClick = () => setSignUp((signUp) => !signUp)
-        const formSchema = yup.object.shape({
+        const formSchema = yup.object().shape({
             username: yup.string().required("Username is required"),
             email: yup.string().required("Email is required"),
-            password: yup.string().required("<PASSWORD>")
+            password: yup.string().required("Please enter a password")
         })
     
     const formik = useFormik({
