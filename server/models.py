@@ -98,12 +98,11 @@ class Product(db.Model, SerializerMixin):
             raise ValueError("Product name already taken")
         return value
     
-    @validates('image')
-    def validate_image(self, key, image_path):
-        valid_images = ['.jpg', '.png', '.jpeg']
-        if valid_images not in image_path:
-            raise ValueError("Invalid image format")
-        return image_path
+    # @validates('image')
+    # def validate_image(self, key, image_path):
+    #     if '.jpg' not in image_path or '.jpeg' not in image_path or '.png' not in image_path:
+    #         raise ValueError("Invalid image format")
+    #     return image_path
     
     def __repr__(self):
         return f'<Name: {self.name}, Description: {self.description}, Price: {self.price}, Size: {self.size}, Color: {self.color}'

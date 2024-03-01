@@ -147,7 +147,7 @@ if __name__ == '__main__':
 
         user1 = User(
             username='TMcCann2019',
-            password='Rio123',
+            password_hash='Rio123',
             email='timothysmccann@gmail.com'
         )
 
