@@ -12,7 +12,7 @@ class User(db.Model, SerializerMixin):
     username = db.Column(db.String(10), unique=True, nullable=False)
     email = db.Column(db.String(25), unique=True, nullable=False)
     _password_hash = db.Column(db.String)
-    orders = db.relationship('Order', backref='user')
+    orders = db.relationship('Order', backref='user', cascade = ("all, delete"))
 
     serialize_rules = ("-orders.user",)
 
@@ -50,7 +50,6 @@ class Order(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     status = db.Column(db.String)
     total = db.Column(db.Float)
-    users = db.relationship('User', backref='orders')
 
     serialize_rules = ("-users.orders",)
 
@@ -72,7 +71,7 @@ class OrderItem(db.Model, SerializerMixin):
     order_id = db.Column(db.Integer, db.ForeignKey('orders.id'))
     quantity = db.Column(db.Integer)
     sub_total = db.Column(db.Float)
-    products = db.relationship('Product', backref='order_item')
+    products = db.relationship('Product', backref='order_item', cascade = ("all, delete"))
 
     serialize_rules = ("-products.order_items",)
 
@@ -89,7 +88,7 @@ class Product(db.Model, SerializerMixin):
     price = db.Column(db.Float)
     size = db.Column(db.String)
     color = db.Column(db.String)
-    order_items = db.relationship('OrderItem', backref='product')
+    order_items = db.relationship('OrderItem', backref='product', cascade = ("all, delete"))
 
     serialize_rules = ("-order_items.products",)
 
@@ -100,11 +99,11 @@ class Product(db.Model, SerializerMixin):
         return value
     
     @validates('image')
-    def validate_image(self, key, value):
+    def validate_image(self, key, image_path):
         valid_images = ['.jpg', '.png', 'jpeg']
-        if value not in valid_images:
+        if image_path not in valid_images:
             raise ValueError("Invalid image format")
-        return value
+        return image_path
     
     def __repr__(self):
         return f'<Name: {self.name}, Description: {self.description}, Price: {self.price}, Size: {self.size}, Color: {self.color}'
