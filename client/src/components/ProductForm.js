@@ -19,7 +19,7 @@ function ProductForm({addProduct, updateProduct, editProduct }) {
 
   const formik = useFormik({
     initialValues: {
-      name: editForm ? editProduct.name :'',
+      name: editForm ? null :'',
       description:editForm ? editProduct.description :'',
       image:editForm ? editProduct.image :'',
       price:editForm ? editProduct.price :'',
@@ -28,7 +28,7 @@ function ProductForm({addProduct, updateProduct, editProduct }) {
     },
     validationSchema: formSchema,
     onSubmit: (values) => {
-      fetch("/products", {
+      fetch(editForm ? `/products/${editProduct.id}` : "/products", {
         method: editForm ? "PATCH" : "POST",
         headers: {
           "Content-Type": "application/json",
@@ -49,8 +49,8 @@ function ProductForm({addProduct, updateProduct, editProduct }) {
       <div className='App'>
 
       <Form onSubmit={formik.handleSubmit}>
-        <label>Name: </label>
-        <input type='text' name='name' value={formik.values.name} onChange={formik.handleChange} />
+        {editForm ? null : <label>Name: </label>}
+        {editForm ? null : <input type='text' name='name' value={formik.values.name} onChange={formik.handleChange} />}
         
         <label>Description: </label>
         <textarea type='text' rows='4' cols='30' name='description' value={formik.values.description} onChange={formik.handleChange} />

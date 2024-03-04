@@ -83,7 +83,7 @@ class ProductByID(Resource):
         response = make_response("", 204)
         return response
 
-api.add_resource(ProductByID, "/products/<int:id>")
+api.add_resource(ProductByID, "/products/<int:id>", methods = ["GET", "PATCH", "DELETE"])
 
 class Users(Resource):
     def post(self):
