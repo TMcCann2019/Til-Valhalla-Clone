@@ -46,22 +46,22 @@ function ProductForm({addProduct}) {
       <div className='App'>
 
       <Form onSubmit={formik.handleSubmit}>
-        <label>Name </label>
+        <label>Name: </label>
         <input type='text' name='name' value={formik.values.name} onChange={formik.handleChange} />
         
-        <label> Description</label>
-        <textarea type='text' rows='4' cols='50' name='description' value={formik.values.description} onChange={formik.handleChange} />
+        <label>Description: </label>
+        <textarea type='text' rows='4' cols='30' name='description' value={formik.values.description} onChange={formik.handleChange} />
       
-        <label>Price</label>
+        <label>Price: </label>
         <input type='number' name='price' value={formik.values.price} onChange={formik.handleChange} />
       
-        <label>Image</label>
+        <label>Image: </label>
         <input type='text' name='image' value={formik.values.image} onChange={formik.handleChange} />
       
-        <label>Size</label>
+        <label>Size: </label>
         <input type='text' name='size' value={formik.values.size} onChange={formik.handleChange} />
       
-        <label>Color</label>
+        <label>Color: </label>
         <input type='text' name='color' value={formik.values.color} onChange={formik.handleChange} />
       
         <input type='submit' />

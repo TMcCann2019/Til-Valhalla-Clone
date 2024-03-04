@@ -97,6 +97,12 @@ class Product(db.Model, SerializerMixin):
             raise ValueError("Product name already taken")
         return value
     
+    @validates('price')
+    def validate_price(self, key, value):
+        if value <= 0:
+            raise ValueError("Invalid product price")
+        return value
+    
     # @validates('image')
     # def validate_image(self, key, image_path):
     #     if '.jpg' not in image_path or '.jpeg' not in image_path or '.png' not in image_path:
