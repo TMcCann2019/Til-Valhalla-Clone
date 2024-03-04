@@ -55,17 +55,17 @@ function App() {
         <Route exact path='/about'>
           <About />
         </Route>
-        <Route path = '/cart' updateProduct = {updateProduct} productEdit = {handleEdit} deleteProduct = {deleteProduct}>
+        {/* <Route path = '/cart' updateProduct = {updateProduct} productEdit = {handleEdit} deleteProduct = {deleteProduct}>
           <ShoppingCart />
-        </Route>
+        </Route> */}
         <Route path='/products'>
-          <ProductDetail deleteProduct = {deleteProduct} productEdit = {handleEdit}/>
+          <ProductDetail deleteProduct = {deleteProduct} productUpdate = {updateProduct}/>
         </Route>
         <Route path = '/products/new'>
           <ProductForm addProduct = {addProduct} />
         </Route>
         <Route exact path='/'>
-          <HomePage />
+          <HomePage products = {products}/>
         </Route>
         <Route>
           <NotFound />

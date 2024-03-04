@@ -2,8 +2,8 @@ import  {useParams, useHistory } from 'react-router-dom'
 import {useEffect, useState} from 'react'
 import styled from 'styled-components'
 
-function ProductDetail({deleteProduct, productEdit}) {
-  const [product, setProduct] = useState()
+function ProductDetail({deleteProduct, productUpdate}) {
+  const [product, setProduct] = useState({order_items:[]})
   const [error, setError] = useState(null)
   
   const params = useParams()
@@ -40,16 +40,17 @@ function ProductDetail({deleteProduct, productEdit}) {
           </div>
       <button >Buy</button>
       <button onClick={() => deleteProduct(product)}>Delete</button>
-      <button onClick={() => productEdit(product)}>Edit</button>
+      <button onClick={() => productUpdate(product)}>Edit</button>
       </CardDetail>
     )
   }
   
   export default ProductDetail
+  
   const CardDetail = styled.li`
     display:flex;
     flex-direction:column;
-    justify-content:start;
+    justify-content:center;
     font-family:Arial, sans-serif;
     margin:5px;
     h1{
