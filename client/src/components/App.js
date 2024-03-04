@@ -3,10 +3,11 @@ import {useEffect, useState} from 'react'
 import Navigation from './Navigation'
 import HomePage from './HomePage'
 import About from './About'
-import Products from './Products'
+import ProductDetail from './ProductDetails'
 import ShoppingCart from './ShoppingCart'
 import Authentication from './Authentication'
 import NotFound from './NotFound'
+import ProductForm from './ProductForm'
 
 function App() {
   const [productEdit, setProductEdit] = useState([])
@@ -63,11 +64,14 @@ function App() {
         <Route exact path='/about'>
           <About />
         </Route>
-        <Route exact path = '/cart' updateProduct = {updateProduct} productEdit = {productEdit} deleteProduct = {deleteProduct}>
+        <Route path = '/cart' updateProduct = {updateProduct} productEdit = {productEdit} deleteProduct = {deleteProduct}>
           <ShoppingCart />
         </Route>
-        <Route exact path='/products'>
-          <Products products={products} addProduct = {addProduct}/>
+        <Route path='/products'>
+          <ProductDetail />
+        </Route>
+        <Route path = '/products/new'>
+          <ProductForm addProduct = {addProduct} />
         </Route>
         <Route exact path='/'>
           <HomePage />
