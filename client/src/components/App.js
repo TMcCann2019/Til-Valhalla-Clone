@@ -50,6 +50,7 @@ function App() {
 
   if (!user) return (
     <>
+      <GlobalStyle />
       <Navigation />
       <Authentication updateUser={updateUser}/>
     </>

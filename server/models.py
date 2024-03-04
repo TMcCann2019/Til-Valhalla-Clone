@@ -71,7 +71,6 @@ class OrderItem(db.Model, SerializerMixin):
     order_id = db.Column(db.Integer, db.ForeignKey('orders.id'))
     quantity = db.Column(db.Integer)
     sub_total = db.Column(db.Float)
-    products = db.relationship('Product', backref='order_item', cascade = ("all, delete"))
 
     serialize_rules = ("-products.order_items",)
 
