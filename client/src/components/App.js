@@ -28,10 +28,10 @@ function App() {
   const updateProduct = (updated_product) => setProducts(products => products.map(product => product.id == updated_product.id ? updated_product : product))
   const deleteProduct = (deleted_product) => setProducts(products => products.filter((product) => product.id !== deleted_product.id))
   const addProduct = (product) => setProducts(current => [...current,product])
-  // const handleEdit = (product) => {
-  //   setProductEdit(product)
-  //   history.push(`/products/${product.id}`)
-  // }
+  const handleEdit = (product) => {
+    setProductEdit(product)
+    history.push(`/products/edit/${product.id}`)
+  }
 
   const updateUser = (user) => setUser(user)
 
@@ -54,10 +54,13 @@ function App() {
         <Route exact path='/about'>
           <About />
         </Route>
-        <Route path='/products'>
-          <ProductDetail deleteProduct = {deleteProduct} productUpdate = {updateProduct}/>
+        <Route path='/products/edit/:id'>
+          <ProductForm updateProduct = {updateProduct} editProduct = {productEdit} />
         </Route>
-        <Route path = '/products/new'>
+        <Route path='/products/:id'>
+          <ProductDetail deleteProduct = {deleteProduct} productUpdate = {handleEdit}/>
+        </Route>
+        <Route path = '/products'>
           <ProductForm addProduct = {addProduct} />
         </Route>
         <Route exact path='/'>

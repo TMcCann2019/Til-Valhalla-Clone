@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { useFormik } from "formik"
 import * as yup from "yup"
 
-function ProductForm({addProduct}) {
+function ProductForm({addProduct, updateProduct, editProduct }) {
   const history = useHistory()
   const formSchema = yup.object().shape({
     name: yup.string().required("Must enter a name"),
@@ -15,19 +15,21 @@ function ProductForm({addProduct}) {
     color: yup.string().required("Must enter a color"),
   })
 
+  const editForm = !!editProduct
+
   const formik = useFormik({
     initialValues: {
-      name:'',
-      description:'',
-      image:'',
-      price:'',
-      size:'',
-      color:'',
+      name: editForm ? editProduct.name :'',
+      description:editForm ? editProduct.description :'',
+      image:editForm ? editProduct.image :'',
+      price:editForm ? editProduct.price :'',
+      size:editForm ? editProduct.size :'',
+      color:editForm ? editProduct.color :'',
     },
     validationSchema: formSchema,
     onSubmit: (values) => {
       fetch("/products", {
-        method: "POST",
+        method: editForm ? "PATCH" : "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -35,13 +37,14 @@ function ProductForm({addProduct}) {
       }).then((res) => {
         if(res.ok) {
           res.json().then(product => {
-            addProduct(product)
+            editForm ? updateProduct(product) : addProduct(product)
             history.push(`/products/${product.id}`)
           })
         }
       })
     },
   })
+
     return (
       <div className='App'>
 

@@ -45,7 +45,7 @@ api.add_resource(Products, "/products")
 
 class ProductByID(Resource):
     def get(self, id):
-        product = Product.query.filter(product.id == id).first()
+        product = Product.query.filter(Product.id == id).first()
         if not product:
             raise NotFound
         product_dict = product.to_dict()
@@ -53,16 +53,17 @@ class ProductByID(Resource):
         return response
 
     def patch(self, id):
-        product = Product.query.filter(product.id == id).first()
+        product = Product.query.filter(Product.id == id).first()
         if not product:
             raise NotFound
 
-        for attr in request.form:
-            setattr(product, attr, request.form[attr])
+        for attr in request.get_json():
+            setattr(product, attr, request.get_json()[attr])
 
-        product.price = int(request.form["price"])
-        product.size = request.form["size"]
-        product.color = request.form["color"]
+        # product.name
+        # product.price = int(request.form["price"])
+        # product.size = request.form["size"]
+        # product.color = request.form["color"]
 
         db.session.add(product)
         db.session.commit()
@@ -73,7 +74,7 @@ class ProductByID(Resource):
         return response
 
     def delete(self, id):
-        product = Product.query.filter(product.id == id).first()
+        product = Product.query.filter(Product.id == id).first()
         if not product:
             raise NotFound
         db.session.delete(product)

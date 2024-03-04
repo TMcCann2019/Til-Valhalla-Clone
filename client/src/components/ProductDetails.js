@@ -9,6 +9,7 @@ function ProductDetail({deleteProduct, productUpdate}) {
   const params = useParams()
   const history = useHistory()
   useEffect(()=>{
+    console.log(params)
     fetch(`/products/${params.id}`)
     .then(res => { 
       if(res.ok){
