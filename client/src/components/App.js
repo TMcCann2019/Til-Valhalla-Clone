@@ -1,5 +1,6 @@
 import { Route, Switch, useHistory } from 'react-router-dom'
 import {useEffect, useState} from 'react'
+import {createGlobalStyle} from 'styled-components'
 import Navigation from './Navigation'
 import HomePage from './HomePage'
 import About from './About'
@@ -56,6 +57,7 @@ function App() {
 
   return (
     <>
+    <GlobalStyle />
     <Navigation updateUser={updateUser} />
       <Switch>
         <Route exact path='/authentication'>
@@ -64,11 +66,11 @@ function App() {
         <Route exact path='/about'>
           <About />
         </Route>
-        <Route path = '/cart' updateProduct = {updateProduct} productEdit = {productEdit} deleteProduct = {deleteProduct}>
+        <Route path = '/cart' updateProduct = {updateProduct} productEdit = {handleEdit} deleteProduct = {deleteProduct}>
           <ShoppingCart />
         </Route>
         <Route path='/products'>
-          <ProductDetail />
+          <ProductDetail deleteProduct = {deleteProduct} productEdit = {handleEdit}/>
         </Route>
         <Route path = '/products/new'>
           <ProductForm addProduct = {addProduct} />
@@ -85,3 +87,10 @@ function App() {
 }
 
 export default App;
+
+const GlobalStyle = createGlobalStyle`
+    body{
+      background-color: black; 
+      color:white;
+    }
+    `

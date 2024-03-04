@@ -2,7 +2,7 @@ import  {useParams, useHistory } from 'react-router-dom'
 import {useEffect, useState} from 'react'
 import styled from 'styled-components'
 
-function ProductDetail() {
+function ProductDetail({deleteProduct, productEdit}) {
   const [product, setProduct] = useState()
   const [error, setError] = useState(null)
   
@@ -39,6 +39,8 @@ function ProductDetail() {
             <img src={image} alt = {name}/>
           </div>
       <button >Buy</button>
+      <button onClick={() => deleteProduct(product)}>Delete</button>
+      <button onClick={() => productEdit(product)}>Edit</button>
       </CardDetail>
     )
   }
