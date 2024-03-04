@@ -22,12 +22,7 @@ const Title = styled.h1`
     width:70px;
     font-size: 70px;
     line-height: .8;
-   
     transform: scale(.7, 1.4);
-    
-    span{
-        color:#42ddf5;
-    }
 `
 
 

@@ -39,8 +39,8 @@ function ProductDetail({deleteProduct, productUpdate}) {
             <img src={image} alt = {name}/>
           </div>
       <button >Buy</button>
-      <button onClick={() => deleteProduct(product)}>Delete</button>
       <button onClick={() => productUpdate(product)}>Edit</button>
+      <button onClick={() => deleteProduct(product)}>Delete</button>
       </CardDetail>
     )
   }

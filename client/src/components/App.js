@@ -5,10 +5,9 @@ import Navigation from './Navigation'
 import HomePage from './HomePage'
 import About from './About'
 import ProductDetail from './ProductDetails'
-import ProductEditForm from './ProductForm'
+import ProductForm from './ProductForm'
 import Authentication from './Authentication'
 import NotFound from './NotFound'
-import ProductForm from './ProductForm'
 
 function App() {
   const [productEdit, setProductEdit] = useState([])
@@ -31,7 +30,7 @@ function App() {
   const addProduct = (product) => setProducts(current => [...current,product])
   const handleEdit = (product) => {
     setProductEdit(product)
-    history.push('/cart')
+    history.push(`/products/${product.id}`)
   }
 
   const updateUser = (user) => setUser(user)
@@ -77,6 +76,6 @@ export default App;
 const GlobalStyle = createGlobalStyle`
     body{
       background-color: black; 
-      color:white;
+      color:green;
     }
     `

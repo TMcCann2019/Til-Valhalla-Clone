@@ -37,7 +37,7 @@ function ProductCard({product}) {
     }
     a{
       text-decoration:none;
-      color:white;
+      color:red;
     }
     img{
       width: 180px;
@@ -46,6 +46,6 @@ function ProductCard({product}) {
     }
     position:relative;
     div{
-     position:absolute;
+     position:float-left;
     }
   `
