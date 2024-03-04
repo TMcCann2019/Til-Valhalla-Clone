@@ -45,7 +45,7 @@ api.add_resource(Products, "/products")
 
 class ProductByID(Resource):
     def get(self, id):
-        product = Product.query.filter_by(id=id).first()
+        product = Product.query.filter(product.id == id).first()
         if not product:
             raise NotFound
         product_dict = product.to_dict()
@@ -53,7 +53,7 @@ class ProductByID(Resource):
         return response
 
     def patch(self, id):
-        product = Product.query.filter_by(id=id).first()
+        product = Product.query.filter(product.id == id).first()
         if not product:
             raise NotFound
 
@@ -73,7 +73,7 @@ class ProductByID(Resource):
         return response
 
     def delete(self, id):
-        product = Product.query.filter_by(id=id).first()
+        product = Product.query.filter(product.id == id).first()
         if not product:
             raise NotFound
         db.session.delete(product)

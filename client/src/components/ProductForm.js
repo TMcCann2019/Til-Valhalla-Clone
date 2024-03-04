@@ -80,7 +80,7 @@ function ProductForm({addProduct}) {
     font-family:Arial;
     font-size:30px;
     input[type=submit]{
-      background-color:#42ddf5;
+      background-color:blue;
       color: white;
       height:40px;
       font-family:Arial;

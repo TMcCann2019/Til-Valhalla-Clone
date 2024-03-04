@@ -28,10 +28,10 @@ function App() {
   const updateProduct = (updated_product) => setProducts(products => products.map(product => product.id == updated_product.id ? updated_product : product))
   const deleteProduct = (deleted_product) => setProducts(products => products.filter((product) => product.id !== deleted_product.id))
   const addProduct = (product) => setProducts(current => [...current,product])
-  const handleEdit = (product) => {
-    setProductEdit(product)
-    history.push(`/products/${product.id}`)
-  }
+  // const handleEdit = (product) => {
+  //   setProductEdit(product)
+  //   history.push(`/products/${product.id}`)
+  // }
 
   const updateUser = (user) => setUser(user)
 
