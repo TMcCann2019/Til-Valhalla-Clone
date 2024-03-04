@@ -5,7 +5,7 @@ import Navigation from './Navigation'
 import HomePage from './HomePage'
 import About from './About'
 import ProductDetail from './ProductDetails'
-import ShoppingCart from './ShoppingCart'
+import ProductEditForm from './ProductForm'
 import Authentication from './Authentication'
 import NotFound from './NotFound'
 import ProductForm from './ProductForm'
@@ -55,9 +55,6 @@ function App() {
         <Route exact path='/about'>
           <About />
         </Route>
-        {/* <Route path = '/cart' updateProduct = {updateProduct} productEdit = {handleEdit} deleteProduct = {deleteProduct}>
-          <ShoppingCart />
-        </Route> */}
         <Route path='/products'>
           <ProductDetail deleteProduct = {deleteProduct} productUpdate = {updateProduct}/>
         </Route>
