@@ -10,11 +10,11 @@ from models import *
 def index():
     return '<h1>Til Valhalla</h1>'
 
-@app.before_request
-def check_if_logged_in():
-    open_access_pages = ["signup", "login", "authorized", "products"]
-    if request.endpoint not in open_access_pages and not session.get('user_id'):
-        raise Unauthorized
+# @app.before_request
+# def check_if_logged_in():
+#     open_access_pages = ["signup", "login", "authorized", "products"]
+#     if request.endpoint not in open_access_pages and not session.get('user_id'):
+#         raise Unauthorized
 
 class Products(Resource):
     def get(self):

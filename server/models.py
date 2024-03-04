@@ -99,7 +99,7 @@ class Product(db.Model, SerializerMixin):
     
     @validates('price')
     def validate_price(self, key, value):
-        if value <= 0:
+        if type(value) != int and value <= 0:
             raise ValueError("Invalid product price")
         return value
     

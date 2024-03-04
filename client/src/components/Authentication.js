@@ -11,7 +11,7 @@ function Authentication({updateUser}) {
     const handleClick = () => setSignUp((signUp) => !signUp)
         const formSchema = yup.object().shape({
             username: yup.string().required("Username is required"),
-            email: yup.string().required("Email is required"),
+            email: signUp ? yup.string().required("Email is required") : null,
             password: yup.string().required("Please enter a password")
         })
     

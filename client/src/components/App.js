@@ -17,7 +17,6 @@ function App() {
   const history = useHistory()
 
   useEffect(() => {
-    fetchUser()
     fetchProducts()
   }, [])
 
@@ -26,17 +25,6 @@ function App() {
     .then(resp => resp.json())
     .then(setProducts)
   )
-
-  const fetchUser = () => {
-    fetch('/users')
-    .then (resp => {
-      if (resp.ok){
-        resp.json().then(setUser)
-      } else {
-        setUser(null)
-      }
-    })
-  }
   
   const updateProduct = (updated_product) => setProducts(products => products.map(product => product.id == updated_product.id ? updated_product : product))
   const deleteProduct = (deleted_product) => setProducts(products => products.filter((product) => product.id !== deleted_product.id))

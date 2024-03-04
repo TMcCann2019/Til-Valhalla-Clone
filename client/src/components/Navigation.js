@@ -55,7 +55,7 @@ const Menu = styled.div`
   align-items: center;
   a{
     text-decoration: none;
-    color:black;
+    color:white;
     font-family:Arial;
   }
   a:hover{
