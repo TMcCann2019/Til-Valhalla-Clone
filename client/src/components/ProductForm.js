@@ -78,6 +78,7 @@ function ProductForm({addProduct, updateProduct, editProduct }) {
         <input type='text' name='color' value={formik.values.color} onChange={formik.handleChange} />
       
         <input type='submit' />
+        {console.log(formik.handleSubmit)}
       </Form> 
       </div>
     )
