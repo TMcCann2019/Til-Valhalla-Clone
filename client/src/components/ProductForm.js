@@ -6,16 +6,16 @@ import * as yup from "yup"
 
 function ProductForm({addProduct, updateProduct, editProduct }) {
   const history = useHistory()
+  const editForm = !!editProduct
+
   const formSchema = yup.object().shape({
-    name: yup.string().required("Must enter a name"),
+    name: editForm ? yup.string() : yup.string().required("Must have a name"),
     description: yup.string().required("Must enter a description"),
     image: yup.string().required("Must enter an image"),
     price: yup.number().positive().required("Must enter a price"),
     size: yup.string().required("Must enter a size"),
     color: yup.string().required("Must enter a color"),
   })
-
-  const editForm = !!editProduct
 
   const editValues = {
       description: editProduct.description,
@@ -78,7 +78,6 @@ function ProductForm({addProduct, updateProduct, editProduct }) {
         <input type='text' name='color' value={formik.values.color} onChange={formik.handleChange} />
       
         <input type='submit' />
-        {console.log(formik.handleSubmit)}
       </Form> 
       </div>
     )

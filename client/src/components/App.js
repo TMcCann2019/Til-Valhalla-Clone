@@ -16,6 +16,7 @@ function App() {
   const history = useHistory()
 
   useEffect(() => {
+    fetchUser()
     fetchProducts()
   }, [])
 
@@ -24,6 +25,31 @@ function App() {
     .then(resp => resp.json())
     .then(setProducts)
   )
+
+  const fetchUser = () => (
+    fetch('/authorized')
+    .then(resp => {
+      if (resp.ok){
+        resp.json()
+        .then(data => {
+          setUser(data)
+        })
+      } else {
+        setUser(null)
+      }
+    })
+  )
+
+  function handleDelete (product) {
+    fetch(`/products/${product.id}`, {
+      method: 'DELETE',
+    }).then(resp => {
+      if(resp.ok){
+        deleteProduct(product)
+        history.push('/')
+      }
+    })
+  }
   
   const updateProduct = (updated_product) => setProducts(products => products.map(product => product.id == updated_product.id ? updated_product : product))
   const deleteProduct = (deleted_product) => setProducts(products => products.filter((product) => product.id !== deleted_product.id))
@@ -58,7 +84,7 @@ function App() {
           <ProductForm updateProduct = {updateProduct} editProduct = {productEdit} />
         </Route>
         <Route path='/products/:id'>
-          <ProductDetail deleteProduct = {deleteProduct} productUpdate = {handleEdit}/>
+          <ProductDetail deleteProduct = {deleteProduct} onHandleDelete = {handleDelete} productUpdate = {handleEdit}/>
         </Route>
         <Route path = '/products'>
           <ProductForm addProduct = {addProduct} />

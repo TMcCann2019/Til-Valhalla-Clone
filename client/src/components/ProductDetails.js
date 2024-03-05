@@ -2,7 +2,7 @@ import  {useParams, useHistory } from 'react-router-dom'
 import {useEffect, useState} from 'react'
 import styled from 'styled-components'
 
-function ProductDetail({deleteProduct, productUpdate}) {
+function ProductDetail({deleteProduct, productUpdate, onHandleDelete}) {
   const [product, setProduct] = useState({order_items:[]})
   const [error, setError] = useState(null)
   
@@ -18,7 +18,6 @@ function ProductDetail({deleteProduct, productUpdate}) {
       }
     })
   },[])
-
   
   const {id, name, description, image, price, size, color} = product
   if(error) return <h2>{error}</h2>
@@ -40,7 +39,7 @@ function ProductDetail({deleteProduct, productUpdate}) {
           </div>
       <button >Buy</button>
       <button onClick={() => productUpdate(product)}>Edit</button>
-      <button onClick={() => deleteProduct(product)}>Delete</button>
+      <button onClick={() => onHandleDelete(product)}>Delete</button>
       </CardDetail>
     )
   }
