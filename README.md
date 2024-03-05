@@ -3,26 +3,50 @@ Welcome to Til Valhalla (clone of Til Valhalla Project)
 BASIC LAYOUT OF HOW THE SITE WILL WORK:  
 Within this website, you (the user) will have access to the following:
 1. See the home page with information about the project and the site itself
-2. See the about page that tells you our mission of the project
-3. See all of our products that are available for purchase
-   * From this page, you will be able to filter the different products to find the ones you want
-   * You can also leave reviews on items you have bought or tried (star rating)
-4. Signin to your account if you have one or signup a new account
-5. See your shopping cart with the items you wish to purchase
-   * You can remove items from this cart
-   * can update the amount of the specific item in the cart
-6. If you are an administrator of the site, you are able to update items, remove items and even create new items
+2. See all of our products that are available
+   * From this page, you will be able to filter the different products to find the ones you want (coming in later versions of the site)
+   * You can also leave reviews on items you have bought or tried (star rating)(coming in later versions of the site)
+3. Signin to your account if you have one or signup a new account
+4. Ability to create a new product with a name, description, image, price, size and color
 
 BREAKDOWN OF THE PRODUCT PAGE:  
 As a user on the prodcut page, you can do the following:
-1. Filter products by category
-2. Filter products by size
-3. Filter products by if its female or male sizing/fit
-4. Leave a star rating on products
-5. Leave a review on products
+1. Update aspects of the product (description, price, size, color)
+2. Delete a product 
+3. Add to a cart feature (coming in later versions of this site)
 
-BREAKDOWN OF THE SHOPPING CART PAGE:  
-
-BREAKDOWN OF SIGNUP/SINGIN PAGE:  
-
-BREAKDOWN OF HOW ADMINS ARE ABLE TO USE THE SITE:  
+BREAKDOWN OF SIGNUP/SINGIN PAGE:    
+1. Usage  
+To use the Authentication component:  
+Import the Component: Import the Authentication component into your React application.
+  
+Pass Props: Ensure to pass the updateUser function as a prop to the Authentication component. This function should be responsible for updating the user state upon successful authentication.
+  
+Integrate with Routing: Ensure that the Authentication component is rendered within the appropriate route of your application, typically where user authentication is required.
+  
+Customization: Customize the component's appearance and behavior according to your application's requirements.
+  
+2. Code Overview  
+The Authentication component is structured as follows:  
+  
+State Management: Utilizes the useState hook to manage the state for signup mode.
+  
+Form Handling: Utilizes Formik and Yup for form validation and submission. Dynamically validates the email field based on the signup mode.
+  
+Routing: Uses the useHistory hook from React Router to navigate users upon successful authentication.
+  
+User Feedback: Provides feedback to users by displaying validation errors and prompts to log in or sign up based on the current mode.
+  
+3. Dependencies  
+The Authentication component relies on the following dependencies:  
+  
+React  
+React Router  
+Formik  
+Yup  
+Ensure these dependencies are installed in your project for the component to work correctly.  
+  
+4. Props  
+The Authentication component expects the following prop:  
+  
+updateUser: Function to update the user state upon successful authentication.
