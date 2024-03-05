@@ -17,15 +17,25 @@ function ProductForm({addProduct, updateProduct, editProduct }) {
 
   const editForm = !!editProduct
 
+  const editValues = {
+      description: editProduct.description,
+      image: editProduct.image,
+      price: editProduct.price,
+      size: editProduct.size,
+      color: editProduct.color,
+  }
+
+  const addValues = {
+      name: '',
+      description: '',
+      image: '',
+      price: '',
+      size: '',
+      color: '',
+  }
+
   const formik = useFormik({
-    initialValues: {
-      name: editForm ? null :'',
-      description:editForm ? editProduct.description :'',
-      image:editForm ? editProduct.image :'',
-      price:editForm ? editProduct.price :'',
-      size:editForm ? editProduct.size :'',
-      color:editForm ? editProduct.color :'',
-    },
+    initialValues: editForm ? editValues : addValues,
     validationSchema: formSchema,
     onSubmit: (values) => {
       fetch(editForm ? `/products/${editProduct.id}` : "/products", {
