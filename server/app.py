@@ -7,8 +7,9 @@ from config import app, db, api
 from models import *
 
 @app.route('/')
-def index():
-    return '<h1>Til Valhalla</h1>'
+@app.route('/<int:id>')
+def index(id=0):
+    return render_template("index.html")
 
 # @app.before_request
 # def check_if_logged_in():
