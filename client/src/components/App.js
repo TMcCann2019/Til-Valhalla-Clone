@@ -110,7 +110,7 @@ function App() {
         <Route exact path='/'>
           <HomePage products = {products}/>
         </Route>
-        <Route>
+        <Route path= '/cart'>
           <Cart />
         </Route>
         <Route>
