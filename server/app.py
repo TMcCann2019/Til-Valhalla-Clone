@@ -1,4 +1,4 @@
-from flask import abort, make_response, request, session
+from flask import abort, make_response, request, session, render_template
 from flask_restful import Resource
 from werkzeug.exceptions import NotFound, Unauthorized
 
