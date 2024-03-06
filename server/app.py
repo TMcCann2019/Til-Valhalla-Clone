@@ -82,6 +82,11 @@ class ProductByID(Resource):
 api.add_resource(ProductByID, "/products/<int:id>")
 
 class OrderItems(Resource):
+    def get(self):
+        order_items = [o.to_dict() for o in OrderItem.query.all()]
+        response = make_response(order_items, 200)
+        return response
+    
     def post(self):
         data = request.get_json()
         try:
