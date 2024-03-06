@@ -5,6 +5,9 @@ import styled from 'styled-components'
 function ProductDetail({deleteProduct, productUpdate, onHandleDelete, addProductToCart}) {
   const [product, setProduct] = useState({order_items:[]})
   const [error, setError] = useState(null)
+  const [showBuyForm, setShowBuyForm] = useState(false)
+  const [quantity, setQuantity] = useState(1)
+  const [subtotal, setSubtotal] = useState(0)
   
   const params = useParams()
   const history = useHistory()
@@ -21,6 +24,24 @@ function ProductDetail({deleteProduct, productUpdate, onHandleDelete, addProduct
   
   const {id, name, description, image, price, size, color} = product
   if(error) return <h2>{error}</h2>
+
+  const handleBuyClick = () => {
+    setShowBuyForm(true);
+    setSubtotal(price * quantity)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    addProductToCart({...product, quantity})
+    setShowBuyForm(false)
+  }
+
+  const handleQuantityChange = (e) => {
+    const newQuantity = parseInt(e.target.value)
+    setQuantity(newQuantity)
+    setSubtotal(price * newQuantity)
+  }
+
   return (
       <CardDetail id={id}>
         <h1>{name}</h1>
@@ -37,7 +58,17 @@ function ProductDetail({deleteProduct, productUpdate, onHandleDelete, addProduct
             </div>
             <img src={image} alt = {name}/>
           </div>
-      <button onClick= {() => addProductToCart(product)}>Buy</button>
+          {showBuyForm ? (
+            <form onSubmit = {handleSubmit}>
+              <label>
+                Quantity:
+                <input type="number" value={quantity} onChange={handleQuantityChange} />
+              </label>
+              <p>Subtotal: {subtotal}</p>
+              <button type="submit">Add to Cart</button>
+            </form>
+          ) : (<button onClick= {handleBuyClick}>Buy</button>)
+          }
       <button onClick={() => productUpdate(product)}>Edit</button>
       <button onClick={() => onHandleDelete(product)}>Delete</button>
       </CardDetail>
