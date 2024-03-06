@@ -152,9 +152,19 @@ api.add_resource(Users, "/users", "/signup")
 
 @app.route('/login', methods=['POST'])
 def login():
+    user_data = request.get_json()
     user = User.query.filter_by(username=request.get_json()['username']).first()
-    if user and user.authenticate(request.get_json()['password']):
+    if user and user.authenticate(user_data['password']):
         session["user_id"] = user.id
+        existing_order = Order.query.filter_by(user_id=user.id, status="In Cart").first()
+        if not existing_order:
+            new_order = Order(
+                user_id=user.id,
+                status="In Cart",
+                total=0
+            )
+            db.session.add(new_order)
+            db.session.commit()
         return make_response(user.to_dict(), 200)
     else:
         raise Unauthorized
