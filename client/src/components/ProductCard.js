@@ -41,7 +41,7 @@ function ProductCard({product}) {
     }
     img{
       width: 180px;
-      margin-left:50%;
+      margin-left:5%;
       mask-image: linear-gradient(to left, rgba(0, 0, 0, .9) 80%, transparent 100%);
     }
     position:relative;
