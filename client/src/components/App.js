@@ -8,6 +8,7 @@ import ProductDetail from './ProductDetails'
 import ProductForm from './ProductForm'
 import Authentication from './Authentication'
 import NotFound from './NotFound'
+import Cart from './Cart'
 
 function App() {
   const [productEdit, setProductEdit] = useState([])
@@ -50,6 +51,23 @@ function App() {
       }
     })
   }
+
+  function addProductToCart(product){
+    fetch(`/cart`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(product, null, 2)
+    }).then(resp => {
+      if(resp.ok){
+        resp.json().then(product => {
+          addProduct(product)
+          history.push(`/products/${product.id}`)
+        })
+      }
+    })
+  }
   
   const updateProduct = (updated_product) => setProducts(products => products.map(product => product.id == updated_product.id ? updated_product : product))
   const deleteProduct = (deleted_product) => setProducts(products => products.filter((product) => product.id !== deleted_product.id))
@@ -84,13 +102,16 @@ function App() {
           <ProductForm updateProduct = {updateProduct} editProduct = {productEdit} />
         </Route>
         <Route path='/products/:id'>
-          <ProductDetail deleteProduct = {deleteProduct} onHandleDelete = {handleDelete} productUpdate = {handleEdit}/>
+          <ProductDetail deleteProduct = {deleteProduct} onHandleDelete = {handleDelete} productUpdate = {handleEdit} addProductToCart={addProductToCart}/>
         </Route>
         <Route path = '/products'>
           <ProductForm addProduct = {addProduct} />
         </Route>
         <Route exact path='/'>
           <HomePage products = {products}/>
+        </Route>
+        <Route>
+          <Cart />
         </Route>
         <Route>
           <NotFound />

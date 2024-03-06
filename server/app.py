@@ -61,11 +61,6 @@ class ProductByID(Resource):
         for attr in request.get_json():
             setattr(product, attr, request.get_json()[attr])
 
-        # product.name
-        # product.price = int(request.form["price"])
-        # product.size = request.form["size"]
-        # product.color = request.form["color"]
-
         db.session.add(product)
         db.session.commit()
 
@@ -85,6 +80,26 @@ class ProductByID(Resource):
         return response
 
 api.add_resource(ProductByID, "/products/<int:id>")
+
+class OrderItems(Resource):
+    def post(self):
+        data = request.get_json()
+        try:
+            new_order_item = OrderItem(
+                product_id=data['product_id'],
+                order_id=data['order_id'],
+                quantity=data['quantity'],
+                sub_total=data['sub_total']
+            )
+        except ValueError as e:
+            abort(422, e.args[0])
+
+        db.session.add(new_order_item)
+        db.session.commit()
+        response = make_response(new_order_item.to_dict(), 201)
+        return response
+    
+api.add_resource(OrderItems, "/cart")
 
 class Users(Resource):
     def post(self):
