@@ -2,50 +2,78 @@ import React, { useState, useEffect } from 'react';
 
 function Cart() {
     const [cartItems, setCartItems] = useState([]);
+    const [subtotal, setSubtotal] = useState(0);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         fetchCartItems();
     }, []);
 
     const fetchCartItems = () => {
+        setLoading(true);
         fetch('/cart')
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch cart items');
+                }
+                return response.json();
+            })
             .then(data => {
                 setCartItems(data);
+                calculateSubtotal(data);
+                setLoading(false);
             })
-            .catch(error => console.error('Error fetching cart items:', error));
+            .catch(error => {
+                setError('Error fetching cart items');
+                setLoading(false);
+            });
     };
 
-    const removeFromCart = (itemId) => {
-        fetch(`/cart/${itemId}`, {
+    const removeFromCart = (productId) => {
+        setLoading(true);
+        fetch(`/cart/${productId}`, {
             method: 'DELETE'
         })
             .then(response => {
-                if (response.ok) {
-                    fetchCartItems();
-                } else {
-                    console.error('Failed to remove item from cart');
+                if (!response.ok) {
+                    throw new Error('Failed to remove item from cart');
                 }
+                fetchCartItems();
             })
-            .catch(error => console.error('Error removing item from cart:', error));
+            .catch(error => {
+                setError('Error removing item from cart');
+                setLoading(false);
+            });
+    };
+
+    const calculateSubtotal = (items) => {
+        const total = items.reduce((acc, item) => {
+            return acc + (item.price * item.quantity);
+        }, 0);
+        setSubtotal(total);
     };
 
     return (
         <div>
             <h2>Your Cart</h2>
-            {cartItems.length === 0 ? (
-                <p>Your cart is empty</p>
-            ) : (
-                <ul>
-                    {cartItems.map(item => (
-                        <li key={item.id}>
-                            <div>{item.product_name}</div>
-                            <div>{item.quantity}</div>
-                            <div>{item.price}</div>
-                            <button onClick={() => removeFromCart(item.id)}>Remove</button>
-                        </li>
-                    ))}
-                </ul>
+            {loading && <p>Loading...</p>}
+            {error && <p>{error}</p>}
+            {cartItems.length === 0 && !loading && !error && <p>Your cart is empty</p>}
+            {cartItems.length > 0 && (
+                <>
+                    <ul>
+                        {cartItems.map(item => (
+                            <li key={item.id}>
+                                <div>{item.product_name}</div>
+                                <div>Quantity: {item.quantity}</div>
+                                <div>Price: ${item.price}</div>
+                                <button onClick={() => removeFromCart(item.product_id)}>Remove</button>
+                            </li>
+                        ))}
+                    </ul>
+                    <p>Subtotal: ${subtotal}</p>
+                </>
             )}
         </div>
     );

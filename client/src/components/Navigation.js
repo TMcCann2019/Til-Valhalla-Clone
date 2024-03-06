@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {Link} from 'react-router-dom'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
@@ -7,6 +7,31 @@ import { GiHamburgerMenu } from 'react-icons/gi'
 function Navigation({updateUser}) {
   const [menu, setMenu] = useState(false)
   const history = useHistory()
+  const [cartItemsCount, setCartItemsCount] = useState(0)
+
+  useEffect(() => {
+    fetchUserData()
+  }, [])
+
+  const fetchUserData = () => {
+    fetch('/authorized')
+    .then(resp => {
+      if (resp.ok){
+        resp.json().then(user => {
+          updateUser(user)
+          if (user.orders && user.order.length > 0){
+            const cart = user.orders.find(order => order.status === 'In Cart')
+            if (cart){
+              setCartItemsCount(cart.order_items.length)
+            }
+          }
+        })
+      } else {
+        updateUser(null)
+        setCartItemsCount(0)
+      }
+    })
+  }
   
   const handleLogout = () => {
     fetch("/logout", {
@@ -31,7 +56,7 @@ function Navigation({updateUser}) {
             <li onClick={() => setMenu(!menu)}>x</li>
             <li><Link to='/'> Home</Link></li>
             <li><Link to= '/about'>About</Link></li>
-            <li><Link to='/cart'> Cart</Link></li>
+            <li><Link to='/cart'> Cart ({cartItemsCount})</Link></li>
             <li><Link to='/products'> New Product</Link></li>
             <li><Link to='/authentication'> Login/Signup</Link></li>
             <li onClick={handleLogout}> Logout </li>
