@@ -114,7 +114,7 @@ class OrderItems(Resource):
     def post(self):
         data = request.get_json()
         user = User.query.filter(User.id == session['user_id']).first()
-        order = user.orders.filter_by(status = 'In Cart').first()
+        order = Order.query.filter_by(user_id=user.id, status="In Cart").first()
         try:
             new_order_item = OrderItem(
                 product_id=data['product_id'],

@@ -50,8 +50,9 @@ class Order(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     status = db.Column(db.String)
     total = db.Column(db.Float)
+    items = db.relationship("OrderItem", backref="order", cascade="all, delete")
 
-    serialize_rules = ("-users.orders",)
+    serialize_rules = ("-user.orders", "-items.order")
 
     @validates('status')
     def validate_status(self, key, value):
@@ -72,7 +73,7 @@ class OrderItem(db.Model, SerializerMixin):
     quantity = db.Column(db.Integer)
     sub_total = db.Column(db.Float)
 
-    serialize_rules = ("-products.order_items",)
+    serialize_rules = ("-product.order_items", "-order.items")
 
     def __repr__(self):
         return f'<Quantity: {self.quantity}'
