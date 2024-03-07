@@ -52,7 +52,7 @@ function App() {
     })
   }
 
-  function addProductToCart(product, order, quantity, sub_total, addProduct, history){
+  function addProductToCart(product, quantity, sub_total, addProduct, history){
     fetch(`/cart`, {
       method: 'POST',
       headers: {
@@ -60,7 +60,6 @@ function App() {
       },
       body: JSON.stringify({
         product_id: product.id,
-        order: order.id,
         quantity: quantity,
         sub_total: sub_total
       })

@@ -116,7 +116,7 @@ class OrderItems(Resource):
         try:
             new_order_item = OrderItem(
                 product_id=data['product_id'],
-                order_id=data['order_id'],
+                # order_id=data['order_id'],
                 quantity=data['quantity'],
                 sub_total=data['sub_total']
             )
@@ -153,7 +153,7 @@ api.add_resource(Users, "/users", "/signup")
 @app.route('/login', methods=['POST'])
 def login():
     user_data = request.get_json()
-    user = User.query.filter_by(username=request.get_json()['username']).first()
+    user = User.query.filter_by(username=user_data['username']).first()
     if user and user.authenticate(user_data['password']):
         session["user_id"] = user.id
         existing_order = Order.query.filter_by(user_id=user.id, status="In Cart").first()
