@@ -60,6 +60,7 @@ function App() {
       },
       body: JSON.stringify({
         product_id: product.id,
+        order: order.id,
         quantity: quantity,
         sub_total: sub_total
       })

@@ -32,7 +32,12 @@ function ProductDetail({deleteProduct, productUpdate, onHandleDelete, addProduct
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    addProductToCart(product, quantity, subtotal)
+    const order = {
+      user_id: 1,
+      status: 'In Cart',
+      total: (price * quantity)
+    }
+    addProductToCart(product, order, quantity, subtotal)
     setShowBuyForm(false)
   }
 
