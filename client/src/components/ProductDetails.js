@@ -34,8 +34,6 @@ function ProductDetail({deleteProduct, productUpdate, onHandleDelete, addProduct
     e.preventDefault()
     const order = {
       user_id: 1,
-      status: 'In Cart',
-      total: (price * quantity)
     }
     addProductToCart(product, order, quantity, subtotal)
     setShowBuyForm(false)
