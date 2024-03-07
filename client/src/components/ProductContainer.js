@@ -25,7 +25,6 @@ const Title = styled.h1`
     transform: scale(.7, 1.4);
 `
 
-
 const CardContainer = styled.ul`
     display:flex;
     flex-direction:column;
