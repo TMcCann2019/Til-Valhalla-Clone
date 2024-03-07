@@ -13,7 +13,7 @@ BREAKDOWN OF THE PRODUCT PAGE:
 As a user on the prodcut page, you can do the following:
 1. Update aspects of the product (description, price, size, color)
 2. Delete a product 
-3. Add to a cart feature (coming in later versions of this site)
+3. Add to a cart feature
 
 BREAKDOWN OF SIGNUP/SINGIN PAGE:    
 1. Usage  

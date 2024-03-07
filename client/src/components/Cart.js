@@ -54,6 +54,7 @@ function Cart() {
         setSubtotal(total);
     };
 
+    // need to find a way to get the name and maybe the image to show in the cart below
     return (
         <div>
             <h2>Your Cart</h2>
@@ -65,7 +66,10 @@ function Cart() {
                     <ul>
                         {cartItems.map(item => (
                             <li key={item.id}>
-                                <div>{item.name}</div>
+                                <div>
+                                    <img src={item.image} alt = {item.name} style={{width: '100px', height: '100px'}} />
+                                    <div>{item.name}</div>
+                                </div>
                                 <div>Quantity: {item.quantity}</div>
                                 <div>Price: ${item.price}</div>
                                 <button onClick={() => removeFromCart(item)}>Remove</button>
