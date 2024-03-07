@@ -81,29 +81,29 @@ class ProductByID(Resource):
 
 api.add_resource(ProductByID, "/products/<int:id>")
 
-class Orders(Resource):
-    def get(self):
-        orders = [o.to_dict() for o in Order.query.all()]
-        response = make_response(orders, 200)
-        return response
+# class Orders(Resource):
+#     def get(self):
+#         orders = [o.to_dict() for o in Order.query.all()]
+#         response = make_response(orders, 200)
+#         return response
     
-    def post(self):
-        data = request.get_json()
-        try:
-            new_order = Order(
-                user_id=data['user_id'],
-                status=data['status'],
-                total=data['total']
-            )
-        except ValueError as e:
-            abort(422, e.args[0])
+#     def post(self):
+#         data = request.get_json()
+#         try:
+#             new_order = Order(
+#                 user_id=data['user_id'],
+#                 status=data['status'],
+#                 total=data['total']
+#             )
+#         except ValueError as e:
+#             abort(422, e.args[0])
 
-        db.session.add(new_order)
-        db.session.commit()
-        response = make_response(new_order.to_dict(), 201)
-        return response
+#         db.session.add(new_order)
+#         db.session.commit()
+#         response = make_response(new_order.to_dict(), 201)
+#         return response
     
-api.add_resource(Orders, "/cart")
+# api.add_resource(Orders, "/cart")
 
 class OrderItems(Resource):
     def get(self):
