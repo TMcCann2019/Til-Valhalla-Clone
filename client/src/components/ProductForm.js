@@ -18,11 +18,11 @@ function ProductForm({addProduct, updateProduct, editProduct }) {
   })
 
   const editValues = {
-      description: editProduct.description,
-      image: editProduct.image,
-      price: editProduct.price,
-      size: editProduct.size,
-      color: editProduct.color,
+      description: editProduct?.description,
+      image: editProduct?.image,
+      price: editProduct?.price,
+      size: editProduct?.size,
+      color: editProduct?.color,
   }
 
   const addValues = {
