@@ -132,6 +132,17 @@ class OrderItems(Resource):
     
 api.add_resource(OrderItems, "/cart")
 
+@app.route('/cart/<int:id>', methods=['DELETE'])
+def delete_order_item(id):
+    order_item = OrderItem.query.filter(OrderItem.id == id).first()
+    if not order_item:
+        raise NotFound
+    db.session.delete(order_item)
+    db.session.commit()
+
+    response = make_response("", 204)
+    return response
+
 class Users(Resource):
     def post(self):
         data = request.get_json()

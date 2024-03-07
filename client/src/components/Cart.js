@@ -30,9 +30,9 @@ function Cart() {
             });
     };
 
-    const removeFromCart = (productId) => {
+    const removeFromCart = (orderItem) => {
         setLoading(true);
-        fetch(`/cart/${productId}`, {
+        fetch(`/cart/${orderItem.id}`, {
             method: 'DELETE'
         })
             .then(response => {
@@ -65,10 +65,10 @@ function Cart() {
                     <ul>
                         {cartItems.map(item => (
                             <li key={item.id}>
-                                <div>{item.product_name}</div>
+                                <div>{item.name}</div>
                                 <div>Quantity: {item.quantity}</div>
                                 <div>Price: ${item.price}</div>
-                                <button onClick={() => removeFromCart(item.product_id)}>Remove</button>
+                                <button onClick={() => removeFromCart(item)}>Remove</button>
                             </li>
                         ))}
                     </ul>
