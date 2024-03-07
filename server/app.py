@@ -209,5 +209,12 @@ def handle_unauthorized(e):
     )
     return response
 
+@app.errorhandler(422)
+def handle_unprocessable_entity(e):
+    response = make_response(
+        {"message": "Unprocessable Entity: something is wrong with the request"}, 422
+    )
+    return response
+
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
