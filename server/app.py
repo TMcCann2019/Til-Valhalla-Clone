@@ -113,10 +113,12 @@ class OrderItems(Resource):
     
     def post(self):
         data = request.get_json()
+        user = User.query.filter(User.id == session['user_id']).first()
+        order = user.orders.filter_by(status = 'In Cart').first()
         try:
             new_order_item = OrderItem(
                 product_id=data['product_id'],
-                # order_id=data['order_id'],
+                order_id=order.id,
                 quantity=data['quantity'],
                 sub_total=data['sub_total']
             )
