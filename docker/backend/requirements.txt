@@ -50,3 +50,4 @@ typing-extensions==4.10.0; python_version < '3.9'
 wcwidth==0.2.13
 werkzeug==3.0.1; python_version >= '3.8'
 zipp==3.17.0; python_version >= '3.8'
+fastapi

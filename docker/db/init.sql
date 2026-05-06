@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS items (
+    id SERIAL PRIMARY KEY,
+    price INTEGER NOT NULL,
+    item VARCHAR(255) DEFAULT NULL,
+    image_path VARCHAR(255)
+);
+
+INSERT INTO items (item, price, image_data)
+VALUES
+()
+ON CONFLICT DO NOTHING;
